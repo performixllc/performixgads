@@ -355,21 +355,22 @@
   }
   .pricing-card:hover { transform: translateY(-4px); }
   .pricing-card.popular {
-    border-color: rgba(66,133,244,0.4);
-    background: rgba(66,133,244,0.04);
+    border-color: rgba(251,188,5,0.4);
+    background: rgba(251,188,5,0.03);
   }
   .popular-badge {
     position: absolute; top: -14px; left: 50%;
     transform: translateX(-50%);
-    background: var(--g-blue); color: #fff;
+    background: var(--g-yellow); color: #000;
     font-weight: 700; font-size: 11px;
     letter-spacing: 0.8px; text-transform: uppercase;
     padding: 4px 16px; border-radius: 100px;
     white-space: nowrap;
   }
   .plan-accent { height: 3px; border-radius: 2px; margin-bottom: 28px; }
-  .plan-accent.blue  { background: var(--g-blue); }
-  .plan-accent.green { background: var(--g-green); }
+  .plan-accent.red    { background: var(--g-red); }
+  .plan-accent.yellow { background: var(--g-yellow); }
+  .plan-accent.green  { background: var(--g-green); }
 
   .plan-name {
     font-size: 11px; font-weight: 700;
@@ -398,8 +399,9 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 9px; flex-shrink: 0; margin-top: 2px; font-weight: 700;
   }
-  .check.blue  { background: rgba(66,133,244,0.15); color: var(--g-blue); }
-  .check.green { background: rgba(52,168,83,0.15);  color: var(--g-green); }
+  .check.red    { background: rgba(234,67,53,0.15);  color: var(--g-red); }
+  .check.yellow { background: rgba(251,188,5,0.15);  color: var(--g-yellow); }
+  .check.green  { background: rgba(52,168,83,0.15);  color: var(--g-green); }
 
   .plan-btn {
     display: block; text-align: center; padding: 14px;
@@ -670,39 +672,39 @@
     <div class="pricing-grid">
 
       <div class="pricing-card fade-up">
-        <div class="plan-accent blue"></div>
+        <div class="plan-accent red"></div>
         <div class="plan-name">Snapshot</div>
         <div class="plan-price"><sup>$</sup>249</div>
         <div class="plan-duration">One-time · Delivered in 5 days</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li><span class="check blue">✓</span> Full Google Ads account audit</li>
-          <li><span class="check blue">✓</span> Top 3 competitor ad analysis</li>
-          <li><span class="check blue">✓</span> Budget waste breakdown</li>
-          <li><span class="check blue">✓</span> Keyword gap report</li>
-          <li><span class="check blue">✓</span> Written action plan (PDF)</li>
-          <li><span class="check blue">✓</span> 1 review call (30 min)</li>
+          <li><span class="check red">✓</span> Full Google Ads account audit</li>
+          <li><span class="check red">✓</span> Top 3 competitor ad analysis</li>
+          <li><span class="check red">✓</span> Budget waste breakdown</li>
+          <li><span class="check red">✓</span> Keyword gap report</li>
+          <li><span class="check red">✓</span> Written action plan (PDF)</li>
+          <li><span class="check red">✓</span> 1 review call (30 min)</li>
         </ul>
         <a href="#book" class="plan-btn">Book Your Audit →</a>
       </div>
 
       <div class="pricing-card popular fade-up">
         <div class="popular-badge">Most Popular</div>
-        <div class="plan-accent blue"></div>
+        <div class="plan-accent yellow"></div>
         <div class="plan-name">Deep Dive</div>
         <div class="plan-price"><sup>$</sup>449</div>
         <div class="plan-duration">15 days · 2–3 revision sessions</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li><span class="check blue">✓</span> Everything in Snapshot</li>
-          <li><span class="check blue">✓</span> Top 5 competitor deep analysis</li>
-          <li><span class="check blue">✓</span> Creative + copy benchmarking</li>
-          <li><span class="check blue">✓</span> Campaign restructure plan</li>
-          <li><span class="check blue">✓</span> 2–3 live working sessions</li>
-          <li><span class="check blue">✓</span> Slack/WhatsApp check-ins</li>
-          <li><span class="check blue">✓</span> Implementation support</li>
+          <li><span class="check yellow">✓</span> Everything in Snapshot</li>
+          <li><span class="check yellow">✓</span> Top 5 competitor deep analysis</li>
+          <li><span class="check yellow">✓</span> Creative + copy benchmarking</li>
+          <li><span class="check yellow">✓</span> Campaign restructure plan</li>
+          <li><span class="check yellow">✓</span> 2–3 live working sessions</li>
+          <li><span class="check yellow">✓</span> Slack/WhatsApp check-ins</li>
+          <li><span class="check yellow">✓</span> Implementation support</li>
         </ul>
-        <a href="#book" class="plan-btn primary">Book Your Audit →</a>
+        <a href="#book" class="plan-btn primary" style="background:var(--g-yellow);color:#000;border-color:transparent;">Book Your Audit →</a>
       </div>
 
       <div class="pricing-card fade-up">
