@@ -5,20 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Google Ads Audit — Find What's Killing Your ROI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Epilogue:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg: #0a0a0a;
     --surface: #111111;
-    --surface2: #161616;
+    --surface2: #141414;
     --border: rgba(255,255,255,0.07);
-    --accent: #d4f200;
-    --accent2: #ff5c3a;
+    --g-blue: #4285F4;
+    --g-red: #EA4335;
+    --g-yellow: #FBBC05;
+    --g-green: #34A853;
     --text: #f0f0f0;
-    --muted: #888;
-    --card-bg: #131313;
+    --muted: #777;
+    --card-bg: #111;
   }
 
   html { scroll-behavior: smooth; }
@@ -26,24 +28,13 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
   }
 
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* ── NAV ── */
+  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -51,158 +42,152 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 48px;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(12px);
+    padding: 20px 52px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
-
   .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
     letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-
-  .nav-logo span { color: var(--accent); }
+  .logo-dots { display: flex; gap: 3px; align-items: center; }
+  .logo-dots span { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .d1 { background: var(--g-blue); }
+  .d2 { background: var(--g-red); }
+  .d3 { background: var(--g-yellow); }
+  .d4 { background: var(--g-green); }
 
   .nav-cta {
-    background: var(--accent);
-    color: #000;
-    font-family: 'Syne', sans-serif;
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 13px;
-    letter-spacing: 0.5px;
     padding: 10px 22px;
-    border-radius: 4px;
+    border-radius: 6px;
     text-decoration: none;
-    transition: opacity 0.2s;
+    transition: background 0.2s;
   }
+  .nav-cta:hover { background: #3070d8; }
 
-  .nav-cta:hover { opacity: 0.85; }
-
-  /* ── HERO ── */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 120px 48px 80px;
+    text-align: center;
+    padding: 130px 48px 80px;
     position: relative;
     overflow: hidden;
   }
-
-  .hero-glow {
+  .blob {
     position: absolute;
-    width: 600px;
-    height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,242,0,0.08) 0%, transparent 70%);
-    top: 10%;
-    right: -100px;
+    filter: blur(100px);
     pointer-events: none;
   }
+  .blob-blue   { width: 560px; height: 560px; background: var(--g-blue);   opacity: 0.07; top: -120px; right: -80px; }
+  .blob-red    { width: 380px; height: 380px; background: var(--g-red);    opacity: 0.06; bottom: -60px; left: -60px; }
+  .blob-yellow { width: 260px; height: 260px; background: var(--g-yellow); opacity: 0.05; top: 35%; left: 8%; }
 
   .hero-tag {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(212,242,0,0.08);
-    border: 1px solid rgba(212,242,0,0.2);
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
+    background: rgba(66,133,244,0.1);
+    border: 1px solid rgba(66,133,244,0.25);
+    color: var(--g-blue);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
     text-transform: uppercase;
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 100px;
-    margin-bottom: 32px;
-    width: fit-content;
+    margin-bottom: 36px;
   }
-
   .hero-tag::before {
     content: '';
     width: 6px; height: 6px;
-    background: var(--accent);
+    background: var(--g-blue);
     border-radius: 50%;
     animation: pulse 2s infinite;
   }
-
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.3; transform:scale(0.75); }
   }
 
   h1 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(42px, 6vw, 80px);
-    line-height: 1.05;
-    letter-spacing: -2px;
-    max-width: 820px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: 1.0;
+    letter-spacing: -2.5px;
+    max-width: 860px;
     margin-bottom: 28px;
   }
-
-  h1 em {
-    font-style: normal;
-    color: var(--accent);
-    position: relative;
-  }
-
   h1 .strike {
+    opacity: 0.22;
     position: relative;
-    opacity: 0.4;
+    display: inline-block;
   }
-
   h1 .strike::after {
     content: '';
     position: absolute;
     left: 0; right: 0;
-    top: 50%;
-    height: 3px;
-    background: var(--accent2);
-    transform: rotate(-1deg);
+    top: 52%;
+    height: 4px;
+    background: var(--g-red);
+    border-radius: 2px;
+    transform: rotate(-1.5deg);
   }
+  h1 .blue   { color: var(--g-blue); }
+  h1 .red    { color: var(--g-red); }
 
   .hero-sub {
     font-size: 18px;
     color: var(--muted);
-    max-width: 520px;
-    margin-bottom: 48px;
-    font-weight: 300;
-    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 48px;
+    font-weight: 400;
+    line-height: 1.75;
   }
-
-  .hero-sub strong { color: var(--text); font-weight: 500; }
+  .hero-sub strong { color: #ccc; font-weight: 600; }
 
   .cta-group {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
   }
-
   .btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--accent);
-    color: #000;
-    font-family: 'Syne', sans-serif;
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 15px;
     padding: 16px 32px;
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 0 0 rgba(212,242,0,0.3);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-
   .btn-primary:hover {
+    background: #3070d8;
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(212,242,0,0.25);
+    box-shadow: 0 10px 32px rgba(66,133,244,0.3);
   }
-
   .btn-primary svg { transition: transform 0.2s; }
   .btn-primary:hover svg { transform: translateX(4px); }
 
@@ -213,30 +198,37 @@
     align-items: center;
     gap: 8px;
   }
+  .hero-proof span { color: var(--g-green); font-weight: 700; }
 
-  .hero-proof span { color: var(--accent); }
-
-  /* ── MARQUEE ── */
-  .marquee-section {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-    padding: 16px 0;
-    background: var(--surface);
+  /* COLOR STRIP */
+  .color-strip {
+    height: 3px;
+    background: linear-gradient(to right,
+      var(--g-blue)   0%,  var(--g-blue)   25%,
+      var(--g-red)    25%, var(--g-red)     50%,
+      var(--g-yellow) 50%, var(--g-yellow)  75%,
+      var(--g-green)  75%, var(--g-green)   100%
+    );
   }
 
+  /* MARQUEE */
+  .marquee-section {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 14px 0;
+    background: var(--surface);
+  }
   .marquee-track {
     display: flex;
     gap: 60px;
-    animation: marquee 20s linear infinite;
+    animation: marquee 22s linear infinite;
     width: max-content;
   }
-
   .marquee-item {
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 1.5px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
     white-space: nowrap;
@@ -244,437 +236,263 @@
     align-items: center;
     gap: 20px;
   }
-
-  .marquee-item::after {
-    content: '✦';
-    color: var(--accent);
-    font-size: 10px;
-  }
-
+  .marquee-item:nth-child(4n+1)::after { content:'✦'; color: var(--g-blue);   font-size:9px; }
+  .marquee-item:nth-child(4n+2)::after { content:'✦'; color: var(--g-red);    font-size:9px; }
+  .marquee-item:nth-child(4n+3)::after { content:'✦'; color: var(--g-yellow); font-size:9px; }
+  .marquee-item:nth-child(4n)::after   { content:'✦'; color: var(--g-green);  font-size:9px; }
   @keyframes marquee {
     from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    to   { transform: translateX(-50%); }
   }
 
-  /* ── SECTIONS ── */
+  /* SHARED */
   section { position: relative; }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 52px; }
   .section-label {
-    font-family: 'Syne', sans-serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--g-blue);
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: clamp(30px, 4vw, 50px);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
     margin-bottom: 16px;
   }
 
-  h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(32px, 4vw, 52px);
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-    margin-bottom: 20px;
-  }
-
-  /* ── WHAT YOU GET ── */
-  .what-section {
-    padding: 100px 0;
-  }
-
-  .what-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-top: 60px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .what-card {
-    background: var(--card-bg);
-    padding: 40px;
-    transition: background 0.3s;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .what-card:hover { background: #1a1a1a; }
-
-  .what-card:nth-child(2n) { border-right: none; }
-  .what-card:nth-last-child(-n+2) { border-bottom: none; }
-
-  .card-icon {
-    width: 44px; height: 44px;
-    background: rgba(212,242,0,0.08);
-    border: 1px solid rgba(212,242,0,0.15);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .what-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
-  }
-
-  .what-card p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  /* ── PAIN SECTION ── */
+  /* PAIN */
   .pain-section {
-    padding: 80px 0;
+    padding: 100px 0;
     background: var(--surface);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
-
-  .pain-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    margin-top: 48px;
-  }
-
+  .pain-list { margin-top: 52px; }
   .pain-item {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
-    padding: 24px 0;
+    gap: 24px;
+    padding: 26px 0;
     border-bottom: 1px solid var(--border);
   }
-
   .pain-num {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    color: var(--accent2);
-    min-width: 32px;
-    padding-top: 2px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    min-width: 28px;
+    padding-top: 3px;
   }
+  .pain-item:nth-child(1) .pain-num { color: var(--g-blue); }
+  .pain-item:nth-child(2) .pain-num { color: var(--g-red); }
+  .pain-item:nth-child(3) .pain-num { color: var(--g-yellow); }
+  .pain-item:nth-child(4) .pain-num { color: var(--g-green); }
+  .pain-item p { font-size: 17px; color: #bbb; font-weight: 300; line-height: 1.7; }
+  .pain-item strong { color: #eee; font-weight: 600; }
 
-  .pain-item p {
-    font-size: 17px;
-    color: var(--text);
-    font-weight: 300;
+  /* WHAT YOU GET */
+  .what-section { padding: 100px 0; }
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 56px;
+    background: var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
   }
+  .what-card {
+    background: var(--card-bg);
+    padding: 40px;
+    transition: background 0.25s;
+  }
+  .what-card:hover { background: #161616; }
+  .card-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px;
+    margin-bottom: 18px;
+  }
+  .what-card:nth-child(1) .card-icon { background: rgba(66,133,244,0.1); border: 1px solid rgba(66,133,244,0.2); }
+  .what-card:nth-child(2) .card-icon { background: rgba(234,67,53,0.1);  border: 1px solid rgba(234,67,53,0.2); }
+  .what-card:nth-child(3) .card-icon { background: rgba(251,188,5,0.1);  border: 1px solid rgba(251,188,5,0.2); }
+  .what-card:nth-child(4) .card-icon { background: rgba(52,168,83,0.1);  border: 1px solid rgba(52,168,83,0.2); }
+  .what-card:nth-child(5) .card-icon { background: rgba(66,133,244,0.1); border: 1px solid rgba(66,133,244,0.2); }
+  .what-card:nth-child(6) .card-icon { background: rgba(234,67,53,0.1);  border: 1px solid rgba(234,67,53,0.2); }
+  .what-card h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800; font-size: 17px;
+    margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  .what-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-  .pain-item strong { font-weight: 500; }
-
-  /* ── PRICING ── */
+  /* PRICING */
   .pricing-section {
     padding: 100px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
-
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
-    margin-top: 60px;
+    margin-top: 56px;
   }
-
   .pricing-card {
-    background: var(--card-bg);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 40px 32px;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     position: relative;
     transition: border-color 0.3s, transform 0.3s;
   }
-
-  .pricing-card:hover {
-    border-color: rgba(212,242,0,0.3);
-    transform: translateY(-4px);
-  }
-
+  .pricing-card:hover { transform: translateY(-4px); }
   .pricing-card.popular {
-    border-color: rgba(212,242,0,0.35);
-    background: #131a00;
+    border-color: rgba(66,133,244,0.4);
+    background: rgba(66,133,244,0.04);
   }
-
   .popular-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
+    position: absolute; top: -14px; left: 50%;
     transform: translateX(-50%);
-    background: var(--accent);
-    color: #000;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 4px 14px;
-    border-radius: 100px;
+    background: var(--g-blue); color: #fff;
+    font-weight: 700; font-size: 11px;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 4px 16px; border-radius: 100px;
     white-space: nowrap;
   }
+  .plan-accent { height: 3px; border-radius: 2px; margin-bottom: 28px; }
+  .plan-accent.blue  { background: var(--g-blue); }
+  .plan-accent.green { background: var(--g-green); }
 
   .plan-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
   }
-
   .plan-price {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 52px;
-    letter-spacing: -2px;
-    line-height: 1;
-    margin-bottom: 4px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900; font-size: 54px;
+    letter-spacing: -2px; line-height: 1; margin-bottom: 4px;
   }
-
-  .plan-price sup {
-    font-size: 22px;
-    vertical-align: super;
-    font-weight: 600;
-    letter-spacing: 0;
-  }
-
-  .plan-duration {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 28px;
-  }
-
-  .plan-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 24px 0;
-  }
-
+  .plan-price sup { font-size: 22px; vertical-align: super; font-weight: 700; }
+  .plan-duration { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .plan-divider  { height: 1px; background: var(--border); margin: 20px 0; }
   .plan-features {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    margin-bottom: 36px;
+    display: flex; flex-direction: column; gap: 12px;
+    flex: 1; margin-bottom: 32px;
   }
-
   .plan-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 14px;
-    color: var(--text);
-    font-weight: 300;
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: #bbb;
   }
-
-  .plan-features li::before {
-    content: '→';
-    color: var(--accent);
-    font-size: 12px;
-    padding-top: 2px;
-    flex-shrink: 0;
+  .check {
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; flex-shrink: 0; margin-top: 2px; font-weight: 700;
   }
+  .check.blue  { background: rgba(66,133,244,0.15); color: var(--g-blue); }
+  .check.green { background: rgba(52,168,83,0.15);  color: var(--g-green); }
 
   .plan-btn {
-    display: block;
-    text-align: center;
-    padding: 14px;
-    border-radius: 8px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid var(--border);
-    color: var(--text);
+    display: block; text-align: center; padding: 14px;
+    border-radius: 8px; font-weight: 700; font-size: 14px;
+    text-decoration: none; transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.1); color: #ccc;
   }
+  .plan-btn:hover { border-color: var(--g-blue); color: var(--g-blue); }
+  .plan-btn.primary { background: var(--g-blue); color: #fff; border-color: transparent; }
+  .plan-btn.primary:hover { background: #3070d8; }
 
-  .plan-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .plan-btn.primary {
-    background: var(--accent);
-    color: #000;
-    border-color: transparent;
-  }
-
-  .plan-btn.primary:hover {
-    background: #c8e600;
-    color: #000;
-  }
-
-  /* ── HOW IT WORKS ── */
-  .how-section {
-    padding: 100px 0;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 60px;
-    max-width: 700px;
-  }
-
+  /* HOW IT WORKS */
+  .how-section { padding: 100px 0; }
+  .steps { margin-top: 56px; max-width: 680px; }
   .step {
-    display: flex;
-    gap: 32px;
-    padding-bottom: 40px;
-    position: relative;
+    display: flex; gap: 28px;
+    padding-bottom: 40px; position: relative;
   }
-
   .step:not(:last-child)::before {
     content: '';
     position: absolute;
-    left: 20px;
-    top: 48px;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
+    left: 19px; top: 44px; bottom: 0;
+    width: 1px; background: var(--border);
   }
-
   .step-num {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(212,242,0,0.08);
-    border: 1px solid rgba(212,242,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    color: var(--accent);
-    flex-shrink: 0;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900; font-size: 14px; flex-shrink: 0;
   }
-
+  .step:nth-child(1) .step-num { background: rgba(66,133,244,0.12); color: var(--g-blue);   border: 1px solid rgba(66,133,244,0.25); }
+  .step:nth-child(2) .step-num { background: rgba(234,67,53,0.12);  color: var(--g-red);    border: 1px solid rgba(234,67,53,0.25); }
+  .step:nth-child(3) .step-num { background: rgba(251,188,5,0.12);  color: var(--g-yellow); border: 1px solid rgba(251,188,5,0.25); }
+  .step:nth-child(4) .step-num { background: rgba(52,168,83,0.12);  color: var(--g-green);  border: 1px solid rgba(52,168,83,0.25); }
   .step-content h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    margin-bottom: 8px;
-    letter-spacing: -0.3px;
-    padding-top: 8px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800; font-size: 18px;
+    margin-bottom: 6px; letter-spacing: -0.3px; padding-top: 8px;
   }
+  .step-content p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-  .step-content p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  /* ── CTA BANNER ── */
-  .cta-section {
-    padding: 100px 0;
-  }
-
+  /* CTA */
+  .cta-section { padding: 100px 0; }
   .cta-box {
     background: var(--surface2);
-    border: 1px solid rgba(212,242,0,0.2);
-    border-radius: 20px;
-    padding: 80px 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid rgba(66,133,244,0.2);
+    border-radius: 20px; padding: 80px 60px;
+    text-align: center; position: relative; overflow: hidden;
   }
-
   .cta-box::before {
     content: '';
     position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,242,0,0.06) 0%, transparent 70%);
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 500px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,133,244,0.07) 0%, transparent 70%);
+    top: -100px; left: 50%; transform: translateX(-50%);
     pointer-events: none;
   }
+  .cta-box h2 { font-size: clamp(28px,4vw,48px); margin-bottom: 16px; }
+  .cta-box p  { color: var(--muted); max-width: 460px; margin: 0 auto 40px; font-size: 16px; }
+  .cta-meta   { margin-top: 20px; font-size: 13px; color: var(--muted); }
 
-  .cta-box h2 {
-    font-size: clamp(28px, 4vw, 48px);
-    margin-bottom: 16px;
-  }
-
-  .cta-box p {
-    color: var(--muted);
-    max-width: 480px;
-    margin: 0 auto 40px;
-    font-size: 16px;
-  }
-
-  .cta-meta {
-    margin-top: 20px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  /* ── FOOTER ── */
+  /* FOOTER */
   footer {
-    padding: 40px 48px;
+    padding: 36px 52px;
     border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
   }
-
   .footer-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900; font-size: 16px;
+    display: flex; align-items: center; gap: 8px;
   }
+  footer p { font-size: 13px; color: var(--muted); }
 
-  .footer-logo span { color: var(--accent); }
-
-  footer p {
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  /* ── ANIMATIONS ── */
+  /* ANIMATIONS */
   .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 0; transform: translateY(24px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
+  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
-    .hero { padding: 100px 24px 60px; }
+    .hero { padding: 110px 24px 60px; }
+    h1 { letter-spacing: -1.5px; }
     .container { padding: 0 24px; }
-    h1 { letter-spacing: -1px; }
     .what-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
     .cta-box { padding: 48px 28px; }
-    footer { padding: 32px 24px; }
+    footer { padding: 28px 24px; }
   }
 </style>
 </head>
@@ -682,22 +500,35 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Audit<span>X</span></div>
+  <div class="nav-logo">
+    <div class="logo-dots">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </div>
   <a href="#book" class="nav-cta">Get Your Free Quote →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
+  <div class="blob blob-blue"></div>
+  <div class="blob blob-red"></div>
+  <div class="blob blob-yellow"></div>
+
   <div class="hero-tag">Google Ads Intelligence</div>
+
   <h1>
     Your Google Ads are<br/>
-    <span class="strike">probably</span> <em>definitely</em><br/>
-    bleeding money.
+    <span class="strike">probably</span> <span class="blue">definitely</span><br/>
+    bleeding <span class="red">money.</span>
   </h1>
+
   <p class="hero-sub">
-    We audit your campaigns <strong>and</strong> spy on your competitors — uncovering exactly where your budget is wasted and where your rivals are winning.
+    We audit your campaigns <strong>and</strong> spy on your competitors —
+    uncovering exactly where your budget is wasted and where your rivals are winning.
   </p>
+
   <div class="cta-group">
     <a href="#book" class="btn-primary">
       Book Your Audit
@@ -708,6 +539,9 @@
     </div>
   </div>
 </section>
+
+<!-- COLOR STRIP -->
+<div class="color-strip"></div>
 
 <!-- MARQUEE -->
 <div class="marquee-section">
@@ -720,7 +554,6 @@
     <span class="marquee-item">Creative Performance Review</span>
     <span class="marquee-item">Landing Page Scoring</span>
     <span class="marquee-item">Bidding Strategy Audit</span>
-    <!-- duplicate for seamless loop -->
     <span class="marquee-item">Campaign Structure Audit</span>
     <span class="marquee-item">Competitor Ad Intelligence</span>
     <span class="marquee-item">Budget Allocation Analysis</span>
@@ -732,7 +565,7 @@
   </div>
 </div>
 
-<!-- PAIN SECTION -->
+<!-- PAIN -->
 <section class="pain-section">
   <div class="container">
     <div class="section-label fade-up">Sound familiar?</div>
@@ -805,56 +638,56 @@
     <h2 class="fade-up">Pick your level<br/>of intelligence.</h2>
     <div class="pricing-grid">
 
-      <!-- $199 -->
       <div class="pricing-card fade-up">
+        <div class="plan-accent blue"></div>
         <div class="plan-name">Snapshot</div>
         <div class="plan-price"><sup>$</sup>199</div>
         <div class="plan-duration">One-time · Delivered in 5 days</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>Full Google Ads account audit</li>
-          <li>Top 3 competitor ad analysis</li>
-          <li>Budget waste breakdown</li>
-          <li>Keyword gap report</li>
-          <li>Written action plan (PDF)</li>
-          <li>1 review call (30 min)</li>
+          <li><span class="check blue">✓</span> Full Google Ads account audit</li>
+          <li><span class="check blue">✓</span> Top 3 competitor ad analysis</li>
+          <li><span class="check blue">✓</span> Budget waste breakdown</li>
+          <li><span class="check blue">✓</span> Keyword gap report</li>
+          <li><span class="check blue">✓</span> Written action plan (PDF)</li>
+          <li><span class="check blue">✓</span> 1 review call (30 min)</li>
         </ul>
         <a href="#book" class="plan-btn">Get Started →</a>
       </div>
 
-      <!-- $299 POPULAR -->
       <div class="pricing-card popular fade-up">
         <div class="popular-badge">Most Popular</div>
+        <div class="plan-accent blue"></div>
         <div class="plan-name">Deep Dive</div>
         <div class="plan-price"><sup>$</sup>299</div>
         <div class="plan-duration">30 days · 2–3 revision sessions</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>Everything in Snapshot</li>
-          <li>Top 5 competitor deep analysis</li>
-          <li>Creative + copy benchmarking</li>
-          <li>Campaign restructure plan</li>
-          <li>2–3 live working sessions</li>
-          <li>Slack/WhatsApp check-ins</li>
-          <li>Implementation support</li>
+          <li><span class="check blue">✓</span> Everything in Snapshot</li>
+          <li><span class="check blue">✓</span> Top 5 competitor deep analysis</li>
+          <li><span class="check blue">✓</span> Creative + copy benchmarking</li>
+          <li><span class="check blue">✓</span> Campaign restructure plan</li>
+          <li><span class="check blue">✓</span> 2–3 live working sessions</li>
+          <li><span class="check blue">✓</span> Slack/WhatsApp check-ins</li>
+          <li><span class="check blue">✓</span> Implementation support</li>
         </ul>
         <a href="#book" class="plan-btn primary">Get Started →</a>
       </div>
 
-      <!-- $500 -->
       <div class="pricing-card fade-up">
+        <div class="plan-accent green"></div>
         <div class="plan-name">Full Stack</div>
         <div class="plan-price"><sup>$</sup>500</div>
         <div class="plan-duration">3 months · Ongoing support</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>Everything in Deep Dive</li>
-          <li>Monthly competitor tracking</li>
-          <li>Ongoing campaign optimization</li>
-          <li>Weekly performance reports</li>
-          <li>Priority Slack access</li>
-          <li>Ad copy A/B testing</li>
-          <li>Quarterly strategy review</li>
+          <li><span class="check green">✓</span> Everything in Deep Dive</li>
+          <li><span class="check green">✓</span> Monthly competitor tracking</li>
+          <li><span class="check green">✓</span> Ongoing campaign optimization</li>
+          <li><span class="check green">✓</span> Weekly performance reports</li>
+          <li><span class="check green">✓</span> Priority Slack access</li>
+          <li><span class="check green">✓</span> Ad copy A/B testing</li>
+          <li><span class="check green">✓</span> Quarterly strategy review</li>
         </ul>
         <a href="#book" class="plan-btn">Get Started →</a>
       </div>
@@ -894,21 +727,21 @@
         <div class="step-num">4</div>
         <div class="step-content">
           <h3>Get your report + action plan</h3>
-          <p>You receive a full audit deck, competitor breakdown, and a prioritized fix list you can action immediately.</p>
+          <p>Full audit deck, competitor breakdown, and a prioritized fix list you can action immediately.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+<!-- CTA -->
 <section class="cta-section" id="book">
   <div class="container">
     <div class="cta-box fade-up">
-      <div class="section-label" style="justify-content:center;display:flex;margin-bottom:20px;">Ready to see the truth?</div>
+      <div class="section-label" style="display:flex;justify-content:center;margin-bottom:20px;">Ready to see the truth?</div>
       <h2>Stop guessing.<br/>Start winning.</h2>
       <p>Book a free 20-min call. We'll tell you exactly what we can find — before you spend a single dollar.</p>
-      <a href="YOUR_TYPEFORM_OR_CALENDLY_LINK" class="btn-primary" style="margin: 0 auto; display:inline-flex;">
+      <a href="YOUR_TYPEFORM_OR_CALENDLY_LINK" class="btn-primary" style="margin:0 auto;display:inline-flex;">
         Book Your Free Call
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -919,21 +752,25 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Audit<span>X</span></div>
+  <div class="footer-logo">
+    <div class="logo-dots" style="display:flex;gap:3px;">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </div>
   <p>© 2025 AuditX. All rights reserved.</p>
 </footer>
 
 <script>
-  // Scroll animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-
+  }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
