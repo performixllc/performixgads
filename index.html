@@ -164,10 +164,9 @@
 
   .cta-group {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 14px;
   }
   .btn-primary {
     display: inline-flex;
@@ -483,6 +482,38 @@
   }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+  /* MOBILE STICKY CTA */
+  .mobile-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 16px 20px;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(66,133,244,0.2);
+  }
+  .mobile-cta a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
+  @media (max-width: 768px) {
+    .mobile-cta { display: block; }
+    body { padding-bottom: 88px; }
+    nav .nav-cta { display: none; }
+  }
+
   /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
@@ -507,7 +538,7 @@
     </div>
     AuditX
   </div>
-  <a href="#book" class="nav-cta">Get Your Free Quote →</a>
+  <a href="#book" class="nav-cta">Book Your Audit →</a>
 </nav>
 
 <!-- HERO -->
@@ -652,7 +683,7 @@
           <li><span class="check blue">✓</span> Written action plan (PDF)</li>
           <li><span class="check blue">✓</span> 1 review call (30 min)</li>
         </ul>
-        <a href="#book" class="plan-btn">Get Started →</a>
+        <a href="#book" class="plan-btn">Book Your Audit →</a>
       </div>
 
       <div class="pricing-card popular fade-up">
@@ -671,7 +702,7 @@
           <li><span class="check blue">✓</span> Slack/WhatsApp check-ins</li>
           <li><span class="check blue">✓</span> Implementation support</li>
         </ul>
-        <a href="#book" class="plan-btn primary">Get Started →</a>
+        <a href="#book" class="plan-btn primary">Book Your Audit →</a>
       </div>
 
       <div class="pricing-card fade-up">
@@ -689,7 +720,7 @@
           <li><span class="check green">✓</span> Ad copy A/B testing</li>
           <li><span class="check green">✓</span> Quarterly strategy review</li>
         </ul>
-        <a href="#book" class="plan-btn">Get Started →</a>
+        <a href="#book" class="plan-btn">Book Your Audit →</a>
       </div>
 
     </div>
@@ -712,7 +743,7 @@
       <div class="step fade-up">
         <div class="step-num">2</div>
         <div class="step-content">
-          <h3>Book a 20-min discovery call</h3>
+          <h3>Book a 30-min discovery call</h3>
           <p>We confirm scope, answer questions, and align on what you want out of the audit.</p>
         </div>
       </div>
@@ -740,12 +771,12 @@
     <div class="cta-box fade-up">
       <div class="section-label" style="display:flex;justify-content:center;margin-bottom:20px;">Ready to see the truth?</div>
       <h2>Stop guessing.<br/>Start winning.</h2>
-      <p>Book a free 20-min call. We'll tell you exactly what we can find — before you spend a single dollar.</p>
+      <p>Book a free 30-min call. We'll tell you exactly what we can find — before you spend a single dollar.</p>
       <a href="YOUR_TYPEFORM_OR_CALENDLY_LINK" class="btn-primary" style="margin:0 auto;display:inline-flex;">
-        Book Your Free Call
+        Book Your Audit
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <div class="cta-meta">No commitment · No credit card · 20 minutes</div>
+      <div class="cta-meta">No commitment · No credit card · 30 minutes</div>
     </div>
   </div>
 </section>
@@ -759,8 +790,16 @@
     </div>
     AuditX
   </div>
-  <p>© 2025 AuditX. All rights reserved.</p>
+  <p>© 2026 AuditX. All rights reserved.</p>
 </footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta">
+  <a href="#book">
+    Book Your Audit
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
