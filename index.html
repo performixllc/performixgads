@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Google Ads Audit — Find What's Killing Your ROI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Epilogue:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #141414;
+    --border: rgba(255,255,255,0.07);
+    --g-blue: #4285F4;
+    --g-red: #EA4335;
+    --g-yellow: #FBBC05;
+    --g-green: #34A853;
+    --text: #f0f0f0;
+    --muted: #777;
+    --card-bg: #111;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 52px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dots { display: flex; gap: 3px; align-items: center; }
+  .logo-dots span { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .d1 { background: var(--g-blue); }
+  .d2 { background: var(--g-red); }
+  .d3 { background: var(--g-yellow); }
+  .d4 { background: var(--g-green); }
+
+  .nav-cta {
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #3070d8; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 130px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .blob-blue   { width: 560px; height: 560px; background: var(--g-blue);   opacity: 0.07; top: -120px; right: -80px; }
+  .blob-red    { width: 380px; height: 380px; background: var(--g-red);    opacity: 0.06; bottom: -60px; left: -60px; }
+  .blob-yellow { width: 260px; height: 260px; background: var(--g-yellow); opacity: 0.05; top: 35%; left: 8%; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(66,133,244,0.1);
+    border: 1px solid rgba(66,133,244,0.25);
+    color: var(--g-blue);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 36px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--g-blue);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.3; transform:scale(0.75); }
+  }
+
+  h1 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: 1.0;
+    letter-spacing: -2.5px;
+    max-width: 860px;
+    margin-bottom: 28px;
+  }
+  h1 .strike {
+    opacity: 0.22;
+    position: relative;
+    display: inline-block;
+  }
+  h1 .strike::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 52%;
+    height: 4px;
+    background: var(--g-red);
+    border-radius: 2px;
+    transform: rotate(-1.5deg);
+  }
+  h1 .blue   { color: var(--g-blue); }
+  h1 .red    { color: var(--g-red); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 48px;
+    font-weight: 400;
+    line-height: 1.75;
+  }
+  .hero-sub strong { color: #ccc; font-weight: 600; }
+
+  .cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background: #3070d8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(66,133,244,0.3);
+  }
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .hero-proof {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-proof span { color: var(--g-green); font-weight: 700; }
+
+  /* COLOR STRIP */
+  .color-strip {
+    height: 3px;
+    background: linear-gradient(to right,
+      var(--g-blue)   0%,  var(--g-blue)   25%,
+      var(--g-red)    25%, var(--g-red)     50%,
+      var(--g-yellow) 50%, var(--g-yellow)  75%,
+      var(--g-green)  75%, var(--g-green)   100%
+    );
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 14px 0;
+    background: var(--surface);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .marquee-item:nth-child(4n+1)::after { content:'✦'; color: var(--g-blue);   font-size:9px; }
+  .marquee-item:nth-child(4n+2)::after { content:'✦'; color: var(--g-red);    font-size:9px; }
+  .marquee-item:nth-child(4n+3)::after { content:'✦'; color: var(--g-yellow); font-size:9px; }
+  .marquee-item:nth-child(4n)::after   { content:'✦'; color: var(--g-green);  font-size:9px; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* SHARED */
+  section { position: relative; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 52px; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--g-blue);
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: clamp(30px, 4vw, 50px);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  /* PAIN */
+  .pain-section {
+    padding: 100px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .pain-list { margin-top: 52px; }
+  .pain-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pain-num {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    min-width: 28px;
+    padding-top: 3px;
+  }
+  .pain-item:nth-child(1) .pain-num { color: var(--g-blue); }
+  .pain-item:nth-child(2) .pain-num { color: var(--g-red); }
+  .pain-item:nth-child(3) .pain-num { color: var(--g-yellow); }
+  .pain-item:nth-child(4) .pain-num { color: var(--g-green); }
+  .pain-item p { font-size: 17px; color: #bbb; font-weight: 300; line-height: 1.7; }
+  .pain-item strong { color: #eee; font-weight: 600; }
+
+  /* WHAT YOU GET */
+  .what-section { padding: 100px 0; }
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 56px;
+    background: var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .what-card {
+    background: var(--card-bg);
+    padding: 40px;
+    transition: background 0.25s;
+  }
+  .what-card:hover { background: #161616; }
+  .card-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px;
+    margin-bottom: 18px;
+  }
+  .what-card:nth-child(1) .card-icon { background: rgba(66,133,244,0.1); border: 1px solid rgba(66,133,244,0.2); }
+  .what-card:nth-child(2) .card-icon { background: rgba(234,67,53,0.1);  border: 1px solid rgba(234,67,53,0.2); }
+  .what-card:nth-child(3) .card-icon { background: rgba(251,188,5,0.1);  border: 1px solid rgba(251,188,5,0.2); }
+  .what-card:nth-child(4) .card-icon { background: rgba(52,168,83,0.1);  border: 1px solid rgba(52,168,83,0.2); }
+  .what-card:nth-child(5) .card-icon { background: rgba(66,133,244,0.1); border: 1px solid rgba(66,133,244,0.2); }
+  .what-card:nth-child(6) .card-icon { background: rgba(234,67,53,0.1);  border: 1px solid rgba(234,67,53,0.2); }
+  .what-card h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800; font-size: 17px;
+    margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  .what-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* PRICING */
+  .pricing-section {
+    padding: 100px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .pricing-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); }
+  .pricing-card.popular {
+    border-color: rgba(251,188,5,0.4);
+    background: rgba(251,188,5,0.03);
+  }
+  .popular-badge {
+    position: absolute; top: -14px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--g-yellow); color: #000;
+    font-weight: 700; font-size: 11px;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 4px 16px; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .plan-accent { height: 3px; border-radius: 2px; margin-bottom: 28px; }
+  .plan-accent.red    { background: var(--g-red); }
+  .plan-accent.yellow { background: var(--g-yellow); }
+  .plan-accent.green  { background: var(--g-green); }
+
+  .plan-name {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .plan-price {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900; font-size: 54px;
+    letter-spacing: -2px; line-height: 1; margin-bottom: 4px;
+  }
+  .plan-price sup { font-size: 22px; vertical-align: super; font-weight: 700; }
+  .plan-duration { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .plan-divider  { height: 1px; background: var(--border); margin: 20px 0; }
+  .plan-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 12px;
+    flex: 1; margin-bottom: 32px;
+  }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: #bbb;
+  }
+  .check {
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; flex-shrink: 0; margin-top: 2px; font-weight: 700;
+  }
+  .check.red    { background: rgba(234,67,53,0.15);  color: var(--g-red); }
+  .check.yellow { background: rgba(251,188,5,0.15);  color: var(--g-yellow); }
+  .check.green  { background: rgba(52,168,83,0.15);  color: var(--g-green); }
+
+  .plan-btn {
+    display: block; text-align: center; padding: 14px;
+    border-radius: 8px; font-weight: 700; font-size: 14px;
+    text-decoration: none; transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.1); color: #ccc;
+  }
+  .plan-btn:hover { border-color: var(--g-blue); color: var(--g-blue); }
+  .plan-btn.primary { background: var(--g-blue); color: #fff; border-color: transparent; }
+  .plan-btn.primary:hover { background: #3070d8; }
+
+  /* HOW IT WORKS */
+  .how-section { padding: 100px 0; }
+  .steps { margin-top: 56px; max-width: 680px; }
+  .step {
+    display: flex; gap: 28px;
+    padding-bottom: 40px; position: relative;
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 44px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .step-num {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900; font-size: 14px; flex-shrink: 0;
+  }
+  .step:nth-child(1) .step-num { background: rgba(66,133,244,0.12); color: var(--g-blue);   border: 1px solid rgba(66,133,244,0.25); }
+  .step:nth-child(2) .step-num { background: rgba(234,67,53,0.12);  color: var(--g-red);    border: 1px solid rgba(234,67,53,0.25); }
+  .step:nth-child(3) .step-num { background: rgba(251,188,5,0.12);  color: var(--g-yellow); border: 1px solid rgba(251,188,5,0.25); }
+  .step:nth-child(4) .step-num { background: rgba(52,168,83,0.12);  color: var(--g-green);  border: 1px solid rgba(52,168,83,0.25); }
+  .step-content h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800; font-size: 18px;
+    margin-bottom: 6px; letter-spacing: -0.3px; padding-top: 8px;
+  }
+  .step-content p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* CTA */
+  .cta-section { padding: 100px 0; }
+  .cta-box {
+    background: var(--surface2);
+    border: 1px solid rgba(66,133,244,0.2);
+    border-radius: 20px; padding: 80px 60px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,133,244,0.07) 0%, transparent 70%);
+    top: -100px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .cta-box h2 { font-size: clamp(28px,4vw,48px); margin-bottom: 16px; }
+  .cta-box p  { color: var(--muted); max-width: 460px; margin: 0 auto 40px; font-size: 16px; }
+  .cta-meta   { margin-top: 20px; font-size: 13px; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    padding: 36px 52px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900; font-size: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  footer p { font-size: 13px; color: var(--muted); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE STICKY CTA */
+  .mobile-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 16px 20px;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(66,133,244,0.2);
+  }
+  .mobile-cta a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
+  @media (max-width: 768px) {
+    .mobile-cta { display: block; }
+    body { padding-bottom: 88px; }
+    nav .nav-cta { display: none; }
+  }
+
+  /* ── FAQ ── */
+  .faq-section {
+    padding: 100px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-list {
+    margin-top: 56px;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+
+  .faq-q:hover { color: var(--g-blue); }
+  .faq-q.open  { color: var(--g-blue); }
+
+  .faq-icon {
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: transform 0.3s ease, color 0.2s;
+  }
+
+  .faq-q.open .faq-icon {
+    transform: rotate(180deg);
+    color: var(--g-blue);
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+
+  .faq-a.open {
+    max-height: 300px;
+    padding-bottom: 22px;
+  }
+
+  .faq-a p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── CASE STUDIES ── */
+  .cases-section {
+    padding: 100px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 56px;
+  }
+
+  .case-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .case-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .case-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .case-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+
+  .case-tag.blue   { background: rgba(66,133,244,0.12); color: var(--g-blue); }
+  .case-tag.yellow { background: rgba(251,188,5,0.12);  color: var(--g-yellow); }
+  .case-tag.green  { background: rgba(52,168,83,0.12);  color: var(--g-green); }
+
+  .case-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .case-header p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .case-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .case-stat {
+    background: var(--bg);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .stat-value.blue   { color: var(--g-blue); }
+  .stat-value.green  { color: var(--g-green); }
+  .stat-value.red    { color: var(--g-red); }
+  .stat-value.yellow { color: var(--g-yellow); }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  .case-finding {
+    padding: 20px 28px 24px;
+    flex: 1;
+  }
+
+  .case-finding-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .case-finding p {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  .case-finding strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testi-section {
+    padding: 100px 0;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 56px;
+  }
+
+  .testi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: border-color 0.3s;
+  }
+
+  .testi-card:hover { border-color: rgba(255,255,255,0.1); }
+
+  .testi-card.featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(66,133,244,0.06) 0%, rgba(10,10,10,0) 60%);
+    border-color: rgba(66,133,244,0.2);
+  }
+
+  .testi-stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  .testi-stars span {
+    color: var(--g-yellow);
+    font-size: 15px;
+  }
+
+  .testi-quote {
+    font-size: 16px;
+    color: #ccc;
+    line-height: 1.75;
+    font-weight: 400;
+    font-style: italic;
+    flex: 1;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .testi-quote::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--g-blue);
+  }
+
+  .testi-card.featured .testi-quote { font-size: 18px; }
+
+  .testi-quote em {
+    font-style: normal;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .testi-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .av-blue   { background: linear-gradient(135deg, #4285F4, #1a5dc7); }
+  .av-green  { background: linear-gradient(135deg, #34A853, #1e7a35); }
+  .av-red    { background: linear-gradient(135deg, #EA4335, #b5291d); }
+  .av-yellow { background: linear-gradient(135deg, #FBBC05, #c49104); }
+
+  .testi-info { display: flex; flex-direction: column; gap: 2px; }
+
+  .testi-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .testi-role {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .testi-result-badge {
+    margin-left: auto;
+    background: rgba(52,168,83,0.1);
+    border: 1px solid rgba(52,168,83,0.2);
+    color: var(--g-green);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .hero { padding: 110px 24px 60px; }
+    h1 { letter-spacing: -1.5px; }
+    .container { padding: 0 24px; }
+    .what-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .cases-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .testi-card.featured { grid-column: span 1; }
+    .cta-box { padding: 48px 28px; }
+    footer { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-dots">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </div>
+  <a href="#book" class="nav-cta">Book Your Audit →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob blob-blue"></div>
+  <div class="blob blob-red"></div>
+  <div class="blob blob-yellow"></div>
+
+  <div class="hero-tag">Google Ads Intelligence</div>
+
+  <h1>
+    Your Google Ads are<br/>
+    <span class="strike">probably</span> <span class="blue">definitely</span><br/>
+    bleeding <span class="red">money.</span>
+  </h1>
+
+  <p class="hero-sub">
+    We audit your campaigns <strong>and</strong> spy on your competitors —
+    uncovering exactly where your budget is wasted and where your rivals are winning.
+  </p>
+
+  <div class="cta-group">
+    <a href="#book" class="btn-primary">
+      Book Your Audit
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="hero-proof">
+      <span>✓</span> Results delivered in 5–7 business days
+    </div>
+  </div>
+</section>
+
+<!-- COLOR STRIP -->
+<div class="color-strip"></div>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Campaign Structure Audit</span>
+    <span class="marquee-item">Competitor Ad Intelligence</span>
+    <span class="marquee-item">Budget Allocation Analysis</span>
+    <span class="marquee-item">Quality Score Breakdown</span>
+    <span class="marquee-item">Keyword Gap Analysis</span>
+    <span class="marquee-item">Creative Performance Review</span>
+    <span class="marquee-item">Landing Page Scoring</span>
+    <span class="marquee-item">Bidding Strategy Audit</span>
+    <span class="marquee-item">Campaign Structure Audit</span>
+    <span class="marquee-item">Competitor Ad Intelligence</span>
+    <span class="marquee-item">Budget Allocation Analysis</span>
+    <span class="marquee-item">Quality Score Breakdown</span>
+    <span class="marquee-item">Keyword Gap Analysis</span>
+    <span class="marquee-item">Creative Performance Review</span>
+    <span class="marquee-item">Landing Page Scoring</span>
+    <span class="marquee-item">Bidding Strategy Audit</span>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section class="pain-section">
+  <div class="container">
+    <div class="section-label fade-up">Sound familiar?</div>
+    <h2 class="fade-up">You're running ads.<br/>But something's off.</h2>
+    <div class="pain-list">
+      <div class="pain-item fade-up">
+        <span class="pain-num">01</span>
+        <p>You're spending <strong>$5K–$50K/month</strong> on Google Ads but can't figure out why your ROAS keeps dropping.</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-num">02</span>
+        <p>Your competitors are <strong>showing up everywhere</strong> — on your brand keywords, your product terms, everywhere you look.</p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-num">03</span>
+        <p>You've changed bidding strategies, tested creatives, shuffled budgets — but <strong>nothing sticks.</strong></p>
+      </div>
+      <div class="pain-item fade-up">
+        <span class="pain-num">04</span>
+        <p>You don't know if your agency or in-house team is <strong>actually doing a good job</strong> or just burning your money.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="what-section">
+  <div class="container">
+    <div class="section-label fade-up">The Deliverables</div>
+    <h2 class="fade-up">A full x-ray of your<br/>Google Ads ecosystem.</h2>
+    <div class="what-grid">
+      <div class="what-card fade-up">
+        <div class="card-icon">🔍</div>
+        <h3>Account-Level Audit</h3>
+        <p>Every campaign, ad group, keyword, and bid strategy reviewed. We flag what's broken, bloated, or being ignored.</p>
+      </div>
+      <div class="what-card fade-up">
+        <div class="card-icon">🎯</div>
+        <h3>Competitor Intelligence</h3>
+        <p>See what ads your top 3–5 competitors are running, what keywords they're targeting, and how their budgets are structured.</p>
+      </div>
+      <div class="what-card fade-up">
+        <div class="card-icon">💸</div>
+        <h3>Budget Waste Report</h3>
+        <p>Exact breakdown of where money is leaking — irrelevant search terms, poor Quality Scores, broken ad paths.</p>
+      </div>
+      <div class="what-card fade-up">
+        <div class="card-icon">📊</div>
+        <h3>Creative & Copy Analysis</h3>
+        <p>Are your headlines and descriptions actually converting? We benchmark them against what's working in your industry.</p>
+      </div>
+      <div class="what-card fade-up">
+        <div class="card-icon">⚙️</div>
+        <h3>Campaign Structure Review</h3>
+        <p>SKAG vs STAG, match types, negative keywords, audience layers — everything that affects how Google spends your budget.</p>
+      </div>
+      <div class="what-card fade-up">
+        <div class="card-icon">📋</div>
+        <h3>Action Plan</h3>
+        <p>Not just a report — a prioritized, step-by-step fix list so you know exactly what to do (or hand off to your team).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-label fade-up">Simple Pricing</div>
+    <h2 class="fade-up">Pick your level<br/>of intelligence.</h2>
+    <div class="pricing-grid">
+
+      <div class="pricing-card fade-up">
+        <div class="plan-accent red"></div>
+        <div class="plan-name">Snapshot</div>
+        <div class="plan-price"><sup>$</sup>499</div>
+        <div class="plan-duration">One-time · Delivered in 5 days</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check red">✓</span> Full Google Ads account audit</li>
+          <li><span class="check red">✓</span> Top 3 competitor ad analysis</li>
+          <li><span class="check red">✓</span> Budget waste breakdown</li>
+          <li><span class="check red">✓</span> Keyword gap report</li>
+          <li><span class="check red">✓</span> Written action plan (PDF)</li>
+          <li><span class="check red">✓</span> 1 review call (30 min)</li>
+        </ul>
+        <a href="#book" class="plan-btn">Book Your Audit →</a>
+      </div>
+
+      <div class="pricing-card popular fade-up">
+        <div class="popular-badge">Most Popular</div>
+        <div class="plan-accent yellow"></div>
+        <div class="plan-name">Deep Dive</div>
+        <div class="plan-price"><sup>$</sup>999</div>
+        <div class="plan-duration">15 days · 2–3 revision sessions</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check yellow">✓</span> Everything in Snapshot</li>
+          <li><span class="check yellow">✓</span> Top 5 competitor deep analysis</li>
+          <li><span class="check yellow">✓</span> Creative + copy benchmarking</li>
+          <li><span class="check yellow">✓</span> Campaign restructure plan</li>
+          <li><span class="check yellow">✓</span> 2–3 live working sessions</li>
+          <li><span class="check yellow">✓</span> Slack/WhatsApp check-ins</li>
+          <li><span class="check yellow">✓</span> Implementation support</li>
+        </ul>
+        <a href="#book" class="plan-btn primary" style="background:var(--g-yellow);color:#000;border-color:transparent;">Book Your Audit →</a>
+      </div>
+
+      <div class="pricing-card fade-up">
+        <div class="plan-accent green"></div>
+        <div class="plan-name">Full Stack</div>
+        <div class="plan-price"><sup>$</sup>1499</div>
+        <div class="plan-duration">30 days · Ongoing support</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check green">✓</span> Everything in Deep Dive</li>
+          <li><span class="check green">✓</span> Monthly competitor tracking</li>
+          <li><span class="check green">✓</span> Ongoing campaign optimization</li>
+          <li><span class="check green">✓</span> Weekly performance reports</li>
+          <li><span class="check green">✓</span> Priority Slack access</li>
+          <li><span class="check green">✓</span> Ad copy A/B testing</li>
+          <li><span class="check green">✓</span> Quarterly strategy review</li>
+        </ul>
+        <a href="#book" class="plan-btn">Book Your Audit →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-label fade-up">The Process</div>
+    <h2 class="fade-up">How it works</h2>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Fill the intake form</h3>
+          <p>Takes 3 minutes. Tell us your website, ad spend, and your top 2–3 competitors. That's it.</p>
+        </div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Book a 30-min discovery call</h3>
+          <p>We confirm scope, answer questions, and align on what you want out of the audit.</p>
+        </div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>We do the deep work</h3>
+          <p>Full audit + competitor research done in 5–7 business days. No shortcuts, no templates.</p>
+        </div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Get your report + action plan</h3>
+          <p>Full audit deck, competitor breakdown, and a prioritized fix list you can action immediately.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="cases-section">
+  <div class="container">
+    <div class="section-label fade-up">Real Results</div>
+    <h2 class="fade-up">What we find inside<br/>real Google Ads accounts.</h2>
+
+    <div class="cases-grid">
+
+      <!-- Case 1 -->
+      <div class="case-card fade-up">
+        <div class="case-header">
+          <div class="case-tag blue">E-Commerce · Home Goods</div>
+          <h3>$14,200/month in wasted spend — invisible to the client</h3>
+          <p>A Shopify brand spending $28K/month on Google Ads had no idea their Shopping feed had 89% of products excluded. Their best-sellers weren't showing at all.</p>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <span class="stat-value red">89%</span>
+            <span class="stat-label">Products excluded from Shopping</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value green">+340%</span>
+            <span class="stat-label">Shopping revenue after fix</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value yellow">$14.2K</span>
+            <span class="stat-label">Monthly waste identified</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value blue">5 days</span>
+            <span class="stat-label">Time to full audit delivery</span>
+          </div>
+        </div>
+        <div class="case-finding">
+          <div class="case-finding-label">Key Finding</div>
+          <p>Their PMax campaign had <strong>no audience signals set</strong> — Google was targeting blindly. Meanwhile, 3 competitors were bidding on their brand terms with zero defensive campaign in place.</p>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="case-card fade-up">
+        <div class="case-header">
+          <div class="case-tag yellow">SaaS · B2B Lead Gen</div>
+          <h3>Conversion tracking was counting email opens as purchases</h3>
+          <p>A SaaS company reported a 12% "conversion rate" — their CEO was thrilled. Their actual purchase conversion rate was 0.8%. Smart Bidding was optimizing against ghost data.</p>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <span class="stat-value red">9 of 11</span>
+            <span class="stat-label">Conversion actions set to Primary</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value green">−62%</span>
+            <span class="stat-label">CPA drop after tracking fix</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value yellow">$0.01</span>
+            <span class="stat-label">Assigned value for "new customer"</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value blue">1,500%</span>
+            <span class="stat-label">ROAS target — set way too high</span>
+          </div>
+        </div>
+        <div class="case-finding">
+          <div class="case-finding-label">Key Finding</div>
+          <p>All micro-conversions (page views, video plays, chatbot opens) were set as Primary goals. <strong>Smart Bidding was optimizing for engagement, not revenue</strong> — and had been for 8 months.</p>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="case-card fade-up">
+        <div class="case-header">
+          <div class="case-tag green">HVAC · Wholesale Distribution</div>
+          <h3>Top competitor paused their PMax — $10M in inventory went dark</h3>
+          <p>Our client's #1 competitor had historically dominated Google Shopping with 75M+ lifetime impressions. Then they went dark. We spotted it first and helped our client move in.</p>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <span class="stat-value red">−250K</span>
+            <span class="stat-label">Competitor impression drop (one month)</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value green">+178%</span>
+            <span class="stat-label">Client Shopping impressions gained</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value yellow">$1.2M</span>
+            <span class="stat-label">Competitor's historical PMax spend</span>
+          </div>
+          <div class="case-stat">
+            <span class="stat-value blue">942%</span>
+            <span class="stat-label">Competitor's reported ROAS (inflated)</span>
+          </div>
+        </div>
+        <div class="case-finding">
+          <div class="case-finding-label">Key Finding</div>
+          <p>The competitor's ROAS was inflated by <strong>GA4-imported goals with no click-based attribution</strong>. Their brand campaign was capped at $100/day despite a 12% CVR. A textbook example of a self-sabotaged account.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="container">
+    <div class="section-label fade-up">What Clients Say</div>
+    <h2 class="fade-up">Don't take our word for it.</h2>
+
+    <div class="testi-grid">
+
+      <!-- Featured -->
+      <div class="testi-card featured fade-up">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-quote">
+          I'd been running Google Ads for 3 years and thought we had a solid setup. The AuditX report showed me we had <em>9 conversion actions all set to Primary</em> — including page views and direction clicks. Our ROAS was a lie. Within 2 weeks of fixing the tracking and restructuring our Shopping campaigns, our actual revenue from Google Ads went up 34% with the same budget. The Loom walkthrough alone was worth the $449.
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar av-blue">JM</div>
+          <div class="testi-info">
+            <span class="testi-name">James M.</span>
+            <span class="testi-role">Head of Marketing · E-Commerce Brand · $40K/mo ad spend</span>
+          </div>
+          <span class="testi-result-badge">+34% revenue</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="testi-card fade-up">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-quote">
+          The competitor intelligence section was something else. They found that our top competitor had paused their entire PMax and had 94% of their Shopping catalog excluded. We launched our own campaigns immediately and picked up the inventory gap. <em>First month we tripled our Shopping impressions.</em>
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar av-green">SR</div>
+          <div class="testi-info">
+            <span class="testi-name">Sarah R.</span>
+            <span class="testi-role">Founder · Wholesale Distribution · $22K/mo ad spend</span>
+          </div>
+          <span class="testi-result-badge">3× impressions</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="testi-card fade-up">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-quote">
+          We were spending $8K/month with a 3% CVR on paper. Turned out our brand campaign was <em>limited by budget at $50/day</em> while our DSA campaign with zero keyword control was eating $400/day. Completely backwards. The audit paid for itself in the first week of fixes.
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar av-yellow">DK</div>
+          <div class="testi-info">
+            <span class="testi-name">Daniel K.</span>
+            <span class="testi-role">CMO · SaaS Platform · $8K/mo ad spend</span>
+          </div>
+          <span class="testi-result-badge">ROI in week 1</span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="testi-card fade-up">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-quote">
+          Hired an agency 6 months ago. They sent monthly reports that looked great on paper. AuditX showed me the agency had <em>no negative keywords list at all</em> — we were paying for searches like "how to sell on eBay" and "free AC repair". $3,200 in wasted spend per month, documented. I cancelled the agency the same day.
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar av-red">TN</div>
+          <div class="testi-info">
+            <span class="testi-name">Tom N.</span>
+            <span class="testi-role">Owner · Home Services Business · $12K/mo ad spend</span>
+          </div>
+          <span class="testi-result-badge">$3.2K/mo saved</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="book">
+  <div class="container">
+    <div class="cta-box fade-up">
+      <div class="section-label" style="display:flex;justify-content:center;margin-bottom:20px;">Ready to see the truth?</div>
+      <h2>Stop guessing.<br/>Start winning.</h2>
+      <p>Book a free 30-min call. We'll tell you exactly what we can find — before you spend a single dollar.</p>
+      <a href="YOUR_TYPEFORM_OR_CALENDLY_LINK" class="btn-primary" style="margin:0 auto;display:inline-flex;">
+        Book Your Audit
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="cta-meta">No commitment · No credit card · 30 minutes</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-label fade-up">Got Questions?</div>
+    <h2 class="fade-up">Frequently asked<br/>questions.</h2>
+    <div class="faq-list">
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Do I need to give you access to my Google Ads account?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Yes — read-only access via Google Ads Manager (MCC). We send you an invitation link, you approve it in 30 seconds. We never need your password, and we can't make any changes to your account at this level. You stay in full control the entire time.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How is this different from what my agency already does?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Your agency has a conflict of interest — they're paid to manage your account, not to tell you what's broken with it. We have no retainer, no ongoing contract, and nothing to protect. Our job is to find every issue, including ones your agency created. We also layer in competitor intelligence that most agencies never touch — what your top 3–5 rivals are spending, what ads they're running, and where they're winning.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What if I'm managing my own Google Ads — is the audit still useful?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Especially useful. Self-managed accounts almost always have blind spots around conversion tracking setup, match type strategy, and negative keyword coverage. We've found clients wasting 20–40% of their monthly budget on irrelevant queries simply because no one was maintaining the search term report. The audit gives you a clear, prioritized fix list you can implement yourself without hiring anyone.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How long does the audit take and what do I actually receive?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Snapshot audits are delivered within 5 business days. Deep Dive and Full Stack take 8–14 days for the initial delivery. You receive a full audit report (PDF), a Loom video walkthrough of all findings, a 1-page prioritized action plan, and a competitor intelligence section covering your top 3–5 rivals. Deep Dive and Full Stack also include live working sessions where we walk through recommendations together.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What's the minimum ad spend to make this worth it?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>We recommend a minimum of $3,000/month in Google Ads spend for the audit to generate a meaningful ROI. At that level, even finding and fixing one issue — like a broken conversion action or a budget-capped brand campaign — typically pays for the audit within the first month. Most clients spending $5K–$50K/month find 10–30% in immediately recoverable waste.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I pay? Do you accept credit cards?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Payment is via ACH bank transfer or wire to our Mercury business account — details are included on every invoice. We don't accept credit cards. Payment is due in full before work begins. Once we confirm receipt, your audit kicks off within 24 hours.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What's your refund policy?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Full refund if requested within 24 hours of payment and before any audit work has started. Once the audit is underway, we don't offer refunds — but if you're unhappy with any deliverable, contact us within 7 days of delivery and we'll revise it at no extra cost. We stand behind the work.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Will you implement the recommendations or just give me a report?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>The Snapshot tier is audit + report only. Deep Dive includes 2–3 working sessions where we walk through implementation together. Full Stack includes 30 days of ongoing support with hands-on optimization work. If you need full account management beyond that, reach out — we can discuss a custom ongoing arrangement after the audit is complete.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Is my account data kept confidential?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>100%. Your account data, spend figures, campaign structure, and competitor findings are never shared with any third party or referenced in any other client's work. We operate under a strict confidentiality policy and can sign an NDA before access is granted if required. Full details are in our Terms & Conditions.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-dots" style="display:flex;gap:3px;">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </div>
+  <div style="display:flex;gap:24px;font-size:13px;">
+    <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;">Privacy Policy</a>
+    <a href="terms.html" style="color:var(--muted);text-decoration:none;">Terms & Conditions</a>
+  </div>
+  <p>© 2026 AuditX. All rights reserved.</p>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta">
+  <a href="#book">
+    Book Your Audit
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<script>
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-q.open').forEach(b => {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+    // open clicked if it was closed
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
