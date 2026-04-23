@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms & Conditions — AuditX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: rgba(255,255,255,0.07);
+    --g-blue: #4285F4;
+    --g-red: #EA4335;
+    --g-yellow: #FBBC05;
+    --g-green: #34A853;
+    --text: #f0f0f0;
+    --muted: #777;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 52px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.95);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+  }
+  .nav-logo {
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dots { display: flex; gap: 3px; }
+  .logo-dots span {
+    width: 6px; height: 6px; border-radius: 50%;
+    display: inline-block;
+  }
+  .d1 { background: var(--g-blue); }
+  .d2 { background: var(--g-red); }
+  .d3 { background: var(--g-yellow); }
+  .d4 { background: var(--g-green); }
+
+  .color-strip {
+    height: 3px;
+    background: linear-gradient(to right,
+      var(--g-blue) 0%, var(--g-blue) 25%,
+      var(--g-red) 25%, var(--g-red) 50%,
+      var(--g-yellow) 50%, var(--g-yellow) 75%,
+      var(--g-green) 75%, var(--g-green) 100%
+    );
+  }
+
+  .page-header {
+    padding: 72px 52px 48px;
+    border-bottom: 1px solid var(--border);
+    max-width: 800px;
+  }
+  .page-tag {
+    display: inline-block;
+    background: rgba(251,188,5,0.08);
+    border: 1px solid rgba(251,188,5,0.2);
+    color: #fcd34d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .page-meta { font-size: 13px; color: var(--muted); }
+  .page-meta span { color: var(--g-green); font-weight: 600; }
+
+  .content {
+    max-width: 800px;
+    padding: 60px 52px 100px;
+  }
+
+  .section { margin-bottom: 52px; }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    background: var(--g-yellow);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  p { color: #aaa; margin-bottom: 14px; font-size: 15px; line-height: 1.8; }
+
+  ul {
+    list-style: none;
+    margin: 12px 0 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #aaa;
+    font-size: 15px;
+  }
+  ul li::before {
+    content: '→';
+    color: var(--g-yellow);
+    font-size: 13px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  a { color: var(--g-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .highlight-box {
+    background: rgba(251,188,5,0.05);
+    border: 1px solid rgba(251,188,5,0.15);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #bbb;
+  }
+
+  footer {
+    padding: 32px 52px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo {
+    font-weight: 800;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+  }
+  .footer-links a { color: var(--muted); }
+  .footer-links a:hover { color: var(--text); }
+  footer p { font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .page-header { padding: 48px 24px 32px; }
+    .content { padding: 40px 24px 80px; }
+    footer { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-dots">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </a>
+  <a href="index.html" style="font-size:13px;color:var(--muted);text-decoration:none;">← Back to Home</a>
+</nav>
+<div class="color-strip"></div>
+
+<div class="page-header">
+  <div class="page-tag">Legal</div>
+  <h1>Terms & Conditions</h1>
+  <p class="page-meta">Last updated: <span>January 1, 2026</span></p>
+</div>
+
+<div class="content">
+
+  <div class="highlight-box">
+    Please read these Terms carefully before booking or purchasing any AuditX service. By booking a call or making a payment, you agree to be bound by these Terms.
+  </div>
+
+  <div class="section">
+    <h2>1. About AuditX</h2>
+    <p>AuditX is a Google Ads audit and competitor intelligence service operated by Performix LLC ("AuditX," "we," "us," or "our"). These Terms govern your use of our website at auditx.com and any services you purchase from us.</p>
+    <p>By accessing our website or engaging our services, you agree to these Terms in full. If you do not agree, please do not use our services.</p>
+  </div>
+
+  <div class="section">
+    <h2>2. Services</h2>
+    <p>AuditX offers the following service tiers:</p>
+    <ul>
+      <li><strong>Snapshot ($249)</strong> — One-time Google Ads account audit with a written action plan, delivered within 5 business days.</li>
+      <li><strong>Deep Dive ($449)</strong> — Comprehensive audit plus competitor analysis, with 2–3 revision sessions over 15 days.</li>
+      <li><strong>Full Stack ($999)</strong> — Extended 60-day engagement including ongoing optimization, weekly reports, and competitor tracking.</li>
+    </ul>
+    <p>The exact scope of each service is confirmed during the discovery call prior to payment. We reserve the right to adjust service inclusions with reasonable notice.</p>
+  </div>
+
+  <div class="section">
+    <h2>3. Booking & Engagement Process</h2>
+    <p>Our engagement process works as follows:</p>
+    <ul>
+      <li>You book a 30-minute discovery call via Cal.com</li>
+      <li>We discuss your needs, confirm scope, and recommend the appropriate service tier</li>
+      <li>You receive an invoice with payment instructions</li>
+      <li>Work begins upon confirmation of cleared payment</li>
+      <li>Deliverables are provided within the agreed timeframe</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>4. Payment Terms</h2>
+    <p>All payments are due prior to the commencement of work unless otherwise agreed in writing.</p>
+    <ul>
+      <li>Payment is accepted via ACH bank transfer or wire transfer to our Mercury business account</li>
+      <li>Invoice details will be provided following your discovery call</li>
+      <li>Payment must be received within 5 business days of invoice issuance</li>
+      <li>Work will not commence until payment has cleared</li>
+      <li>All prices are in USD</li>
+    </ul>
+    <p>Late payments may result in delayed project start dates. We reserve the right to cancel a booking if payment is not received within the specified timeframe.</p>
+  </div>
+
+  <div class="section">
+    <h2>5. Refund Policy</h2>
+    <p>Due to the time-intensive and custom nature of our services, we have the following refund policy:</p>
+    <ul>
+      <li><strong>Before work commences</strong> — Full refund if requested within 24 hours of payment and before any audit work has begun.</li>
+      <li><strong>After work commences</strong> — No refunds once audit work has started. We are committed to delivering the agreed scope in full.</li>
+      <li><strong>Dissatisfaction</strong> — If you are unhappy with a deliverable, contact us within 7 days of delivery. We will work to address your concerns through revisions at no extra cost.</li>
+    </ul>
+    <p>Refunds will be processed via the original payment method within 10 business days.</p>
+  </div>
+
+  <div class="section">
+    <h2>6. Client Responsibilities</h2>
+    <p>To deliver the best audit, we may require you to:</p>
+    <ul>
+      <li>Grant read-only or manager access to your Google Ads account</li>
+      <li>Provide relevant business context (industry, goals, target audience)</li>
+      <li>Share a list of known competitors if applicable</li>
+      <li>Respond to follow-up questions within a reasonable timeframe</li>
+    </ul>
+    <p>Delays caused by failure to provide necessary access or information may affect delivery timelines. We are not responsible for delays resulting from your failure to cooperate in a timely manner.</p>
+  </div>
+
+  <div class="section">
+    <h2>7. Deliverables & Intellectual Property</h2>
+    <p>Upon receipt of full payment, you own the deliverables we create specifically for you (audit reports, action plans, competitor analyses).</p>
+    <p>We retain ownership of our methodologies, frameworks, templates, and processes used to produce those deliverables.</p>
+    <p>You may not resell, redistribute, or license our deliverables to third parties without our written consent.</p>
+  </div>
+
+  <div class="section">
+    <h2>8. Confidentiality</h2>
+    <p>We treat all client information — including ad account data, business metrics, and strategy — as strictly confidential. We will not share your information with any third party except as necessary to deliver the service or as required by law.</p>
+    <p>Similarly, we ask that you keep any proprietary methods or frameworks we share with you confidential and not share them publicly.</p>
+  </div>
+
+  <div class="section">
+    <h2>9. Results Disclaimer</h2>
+    <p>Our audits and recommendations are based on best practices, data analysis, and industry expertise. However, we do not guarantee specific outcomes, including improvements in ROAS, conversion rates, or ad spend efficiency.</p>
+    <p>Results depend on factors outside our control, including how recommendations are implemented, market conditions, and platform algorithm changes. Past performance of similar audits does not guarantee future results.</p>
+  </div>
+
+  <div class="section">
+    <h2>10. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, AuditX and Performix LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services.</p>
+    <p>Our total liability for any claim arising from our services shall not exceed the amount you paid us for the relevant service engagement.</p>
+  </div>
+
+  <div class="section">
+    <h2>11. Governing Law</h2>
+    <p>These Terms are governed by the laws of the United States. Any disputes arising under these Terms shall be resolved through good-faith negotiation. If negotiation fails, disputes shall be submitted to binding arbitration in accordance with applicable rules.</p>
+  </div>
+
+  <div class="section">
+    <h2>12. Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. When we do, we will update the "Last updated" date at the top of this page. Your continued use of our services after changes are posted constitutes your acceptance of the updated Terms.</p>
+  </div>
+
+  <div class="section">
+    <h2>13. Contact Us</h2>
+    <p>For any questions regarding these Terms, please contact us:</p>
+    <ul>
+      <li>Email: <a href="mailto:hello@auditx.com">hello@auditx.com</a></li>
+      <li>Business: Performix LLC</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <div class="logo-dots" style="display:flex;gap:3px;">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </div>
+  <div class="footer-links">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+  </div>
+  <p>© 2026 AuditX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
