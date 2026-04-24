@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You're Booked! — AuditX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TF9B4K5C');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Fire Lead conversion event on page load -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    'event': 'generate_lead',
+    'event_category': 'booking',
+    'event_label': 'discovery_call',
+    'value': 499,
+    'currency': 'USD'
+  });
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: rgba(255,255,255,0.07);
+    --g-blue: #4285F4;
+    --g-red: #EA4335;
+    --g-yellow: #FBBC05;
+    --g-green: #34A853;
+    --text: #f0f0f0;
+    --muted: #777;
+    --card: #131313;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP STRIPE ── */
+  .stripe {
+    height: 4px;
+    background: linear-gradient(to right,
+      var(--g-blue) 0%, var(--g-blue) 25%,
+      var(--g-red) 25%, var(--g-red) 50%,
+      var(--g-yellow) 50%, var(--g-yellow) 75%,
+      var(--g-green) 75%, var(--g-green) 100%
+    );
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.95);
+  }
+
+  .nav-logo {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-dots { display: flex; gap: 4px; }
+  .logo-dots span {
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .d1 { background: var(--g-blue); }
+  .d2 { background: var(--g-red); }
+  .d3 { background: var(--g-yellow); }
+  .d4 { background: var(--g-green); }
+
+  /* ── HERO ── */
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(52,168,83,0.07) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  /* Animated checkmark */
+  .check-wrap {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: rgba(52,168,83,0.1);
+    border: 2px solid rgba(52,168,83,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 32px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  .check-wrap svg {
+    animation: drawCheck 0.4s ease 0.3s both;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+  }
+
+  @keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(52,168,83,0.1);
+    border: 1px solid rgba(52,168,83,0.25);
+    color: var(--g-green);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s ease 0.2s both;
+  }
+
+  h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.08;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s ease 0.3s both;
+  }
+
+  h1 span { color: var(--g-green); }
+
+  .sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s ease 0.4s both;
+  }
+
+  .sub strong { color: var(--text); font-weight: 600; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── WHAT'S NEXT CARDS ── */
+  .next-section {
+    padding: 0 24px 80px;
+    max-width: 860px;
+    margin: 0 auto;
+    width: 100%;
+    animation: fadeUp 0.5s ease 0.5s both;
+  }
+
+  .next-label {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .next-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .next-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .next-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .next-card.blue::before  { background: var(--g-blue); }
+  .next-card.yellow::before { background: var(--g-yellow); }
+  .next-card.green::before  { background: var(--g-green); }
+
+  .step-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .step-num.blue   { color: var(--g-blue); }
+  .step-num.yellow { color: var(--g-yellow); }
+  .step-num.green  { color: var(--g-green); }
+
+  .next-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+
+  .next-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── PREP BOX ── */
+  .prep-box {
+    background: var(--surface);
+    border: 1px solid rgba(66,133,244,0.2);
+    border-radius: 16px;
+    padding: 36px 40px;
+    text-align: left;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prep-box::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,133,244,0.05) 0%, transparent 70%);
+    top: -60px; right: -60px;
+    pointer-events: none;
+  }
+
+  .prep-box h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .prep-box h2 span {
+    color: var(--g-blue);
+  }
+
+  .prep-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .prep-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+
+  .prep-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(66,133,244,0.1);
+    border: 1px solid rgba(66,133,244,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .prep-dot span {
+    color: var(--g-blue);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .prep-item strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+    margin: 0 auto;
+  }
+
+  .back-link:hover { color: var(--text); }
+
+  .back-wrap {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-logo {
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+  }
+
+  .footer-links a { color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+
+  footer p { font-size: 13px; color: var(--muted); }
+
+  /* ── CONFETTI dots ── */
+  .confetti {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    pointer-events: none;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    animation: fall linear forwards;
+    top: -20px;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    h1 { letter-spacing: -1.5px; }
+    .next-grid { grid-template-columns: 1fr; }
+    .prep-box { padding: 28px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TF9B4K5C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Confetti container -->
+<div class="confetti" id="confetti"></div>
+
+<div class="stripe"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-dots">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </a>
+  <a href="index.html" style="font-size:13px; color:var(--muted); text-decoration:none;">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="check-wrap">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 18L15 25L28 11" stroke="#34A853" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="tag">Booking Confirmed</div>
+  <h1>You're booked.<br/><span>See you on the call.</span></h1>
+  <p class="sub">
+    Check your email for the <strong>calendar invite and Google Meet link.</strong>
+    We'll see you soon — come prepared and we'll make the 30 minutes count.
+  </p>
+</section>
+
+<!-- WHAT'S NEXT -->
+<div class="next-section">
+  <div class="next-label">What happens next</div>
+  <div class="next-grid">
+    <div class="next-card blue">
+      <div class="step-num blue">Step 01</div>
+      <h3>Check your inbox</h3>
+      <p>You'll receive a confirmation email with the Google Meet link and calendar invite within a few minutes.</p>
+    </div>
+    <div class="next-card yellow">
+      <div class="step-num yellow">Step 02</div>
+      <h3>Prep your account</h3>
+      <p>Have access to your Google Ads account ready. We'll do a live look during the call if you'd like.</p>
+    </div>
+    <div class="next-card green">
+      <div class="step-num green">Step 03</div>
+      <h3>We talk, you win</h3>
+      <p>30 minutes of straight talk about your account. You'll leave knowing exactly what we'll find and fix.</p>
+    </div>
+  </div>
+
+  <!-- PREP BOX -->
+  <div class="prep-box">
+    <h2>📋 Come prepared — <span>it'll make all the difference</span></h2>
+    <div class="prep-list">
+      <div class="prep-item">
+        <div class="prep-dot"><span>1</span></div>
+        <p><strong>Your monthly Google Ads spend</strong> — rough number is fine. Helps us frame the size of opportunity.</p>
+      </div>
+      <div class="prep-item">
+        <div class="prep-dot"><span>2</span></div>
+        <p><strong>Your primary KPI</strong> — are you optimizing for ROAS, CPA, lead volume, or revenue? Know your target.</p>
+      </div>
+      <div class="prep-item">
+        <div class="prep-dot"><span>3</span></div>
+        <p><strong>Your top 3 competitors</strong> — who are you seeing in the auction? We'll pull their data live on the call.</p>
+      </div>
+      <div class="prep-item">
+        <div class="prep-dot"><span>4</span></div>
+        <p><strong>Your biggest frustration</strong> — what's the one thing about your Google Ads that keeps you up at night?</p>
+      </div>
+      <div class="prep-item">
+        <div class="prep-dot"><span>5</span></div>
+        <p><strong>Google Ads account access</strong> — if you can, have your account open and ready. We may take a quick look together.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-wrap">
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to AuditX
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <div class="logo-dots" style="display:flex;gap:4px;">
+      <span class="d1"></span><span class="d2"></span>
+      <span class="d3"></span><span class="d4"></span>
+    </div>
+    AuditX
+  </div>
+  <div class="footer-links">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+  </div>
+  <p>© 2026 AuditX. All rights reserved.</p>
+</footer>
+
+<script>
+// ── CONFETTI ──────────────────────────────────────────────────────────
+const colors = ['#4285F4','#EA4335','#FBBC05','#34A853'];
+const container = document.getElementById('confetti');
+
+function spawnDot() {
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  const size = Math.random() * 10 + 5;
+  const left = Math.random() * 100;
+  const duration = Math.random() * 2 + 2;
+  const delay = Math.random() * 1.5;
+  dot.style.cssText = `
+    width: ${size}px;
+    height: ${size}px;
+    left: ${left}%;
+    background: ${colors[Math.floor(Math.random() * colors.length)]};
+    animation-duration: ${duration}s;
+    animation-delay: ${delay}s;
+    opacity: 0.8;
+  `;
+  container.appendChild(dot);
+  setTimeout(() => dot.remove(), (duration + delay) * 1000);
+}
+
+// Spawn 60 dots on load
+for (let i = 0; i < 60; i++) spawnDot();
+
+// ── FADE IN ELEMENTS ──────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.next-card, .prep-box').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
